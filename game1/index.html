@@ -13,7 +13,7 @@
     <nav class="navbar">
       <div class="nav-container">
           <a href="../index.html" class="nav-logo"><i class="fa-solid fa-map"></i> Geo Treasure Hunt</a>
-          <a href="../game2/index.html" class="skip-button">
+          <a href="../game2/" class="skip-button">
             <i class="fa-solid fa-arrow-right-long"></i>
           </a>
       </div>
@@ -35,12 +35,15 @@
       for more information.
       -->
 
-    <script type="module">
-      import {loadScript} from "../src/main.js"
-      window.onload=()=> {
-        loadScript(0);
-      }
-    </script>
+      <script type="module">
+        import {loadScript, setupRevealButton } from "../src/main.js"
+        window.onload=()=> {
+          loadScript(0);
+          setupRevealButton(1, 0);
+        }
+  
+  
+      </script>
 
   </body>
 </html>

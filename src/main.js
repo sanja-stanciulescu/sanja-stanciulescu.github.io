@@ -1,11 +1,25 @@
-console.log("ceva");
+
 let panorama;
 let targetLocation;
-const locations = [{ lat: 44.459993, lng: 26.112981 }];
+const locations = [{ lat: 44.453417, lng: 26.104954 },
+  { lat: 44.480951, lng: 26.101824 },
+  { lat: 44.478558, lng: 26.104557 },
+  { lat: 44.479849, lng: 26.089160 },
+  { lat: 44.487329, lng: 26.083030 },
+  { lat: 44.490661, lng: 26.078970 },
+  { lat: 44.477987, lng: 26.071918 },
+  { lat: 44.478693, lng: 26.072087 }
+ ];
+
+const imageLocations = [{lat: 44.478542, lng: 26.102650},
+  {lat: 44.477510, lng: 26.064135},
+  {lat: 44.605236, lng: 26.085428}
+];
+
 const maxDistance = 50;
 
 export function loadScript(index) {
-  var myKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  var myKey = "AIzaSyBM7igAh9vy8pl_xx1SATNDHhcNlxQn6RM";
   var script = document.createElement('script');
   script.type = 'text/javascript';
   targetLocation = locations[index];
@@ -21,6 +35,7 @@ export function initialize() {
       position: targetLocation,
       pov: { heading: 165, pitch: 0 },
       zoom: 1,
+      showRoadLabels: false,
     }
   );
 }
@@ -37,14 +52,24 @@ function getDistance(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-function getLocation() {
+function getLocation(nextPageIndex, isGift) {
   navigator.geolocation.getCurrentPosition((position) => {
     const userLat = position.coords.latitude;
     const userLng = position.coords.longitude;
     const distance = getDistance(userLat, userLng, targetLocation.lat, targetLocation.lng);
 
     if (distance <= maxDistance) {
-      window.location.href = "../game2/index.html"; // Move to the next page
+      if (isGift == 1) {
+        const congratsMessage = document.getElementById("congrats-message");
+        congratsMessage.classList.add("show-message");
+
+        // Wait 3 seconds before redirecting
+        setTimeout(() => {
+          window.location.href = `../game${nextPageIndex}/index.html`; // Move to the next page
+        }, 3000);
+      } else {
+        window.location.href = `../game${nextPageIndex}/index.html`; // Move to the next page
+      }
     } else {
       const errorMessage = document.getElementById("error-message");
       errorMessage.style.display = "block";
@@ -62,22 +87,28 @@ function getLocation() {
   });
 }
 
-document.getElementById("reveal-clue").addEventListener("click", () => {
-  if (navigator.geolocation) {
-    // Check if location permission has been granted
-    navigator.permissions.query({ name: 'geolocation' }).then(permissionStatus => {
-      if (permissionStatus.state === 'granted') {
-        // If permission is granted, get the location
-        getLocation();
-      } else if (permissionStatus.state === 'prompt') {
-        // If permission hasn't been granted yet, request location
-        getLocation();
-      } else {
-        // Handle the case where permission is denied
-        alert("You have denied location access. Please enable location sharing to continue.");
-      }
-    });
-  } else {
-    alert("Geolocation is not supported by your browser.");
-  }
-});
+export function addImageLocation(index) {
+  targetLocation = imageLocations[index];
+}
+
+export function setupRevealButton(currentGameIndex, isGift) {
+  document.getElementById("reveal-clue").addEventListener("click", () => {
+    if (navigator.geolocation) {
+      // Check if location permission has been granted
+      navigator.permissions.query({ name: 'geolocation' }).then(permissionStatus => {
+        if (permissionStatus.state === 'granted') {
+          // If permission is granted, get the location
+          getLocation(currentGameIndex + 1, isGift);
+        } else if (permissionStatus.state === 'prompt') {
+          // If permission hasn't been granted yet, request location
+          getLocation(currentGameIndex + 1, isGift);
+        } else {
+          // Handle the case where permission is denied
+          alert("You have denied location access. Please enable location sharing to continue.");
+        }
+      });
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  });
+}

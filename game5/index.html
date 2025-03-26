@@ -1,0 +1,49 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street View Game1</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+          <a href="../index.html" class="nav-logo"><i class="fa-solid fa-map"></i> Geo Treasure Hunt</a>
+          <a href="../game6/" class="skip-button">
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+      </div>
+    </nav>
+
+    <div id="street-view"></div>
+
+    <!-- Reveal Next Clue Button -->
+    <button id="reveal-clue">Reveal Next Clue</button>
+
+    <!-- Error Message -->
+    <p id="error-message" style="display: none;">You are too far from the location!<br>Try again when you get there <i class="fa-solid fa-face-smile"></i></p>
+
+    <!-- 
+      The `defer` attribute causes the script to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises. See
+      https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+
+    <script type="module">
+      import {loadScript, setupRevealButton } from "../src/main.js"
+      window.onload=()=> {
+        loadScript(3);
+        setupRevealButton(5, 0);
+      }
+
+
+    </script>
+
+  </body>
+</html>
