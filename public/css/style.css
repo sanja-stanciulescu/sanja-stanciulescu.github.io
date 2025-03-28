@@ -395,6 +395,7 @@ p {
     padding: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
+    margin-bottom: 6vh;
 }
 
 .ending-title {
@@ -436,7 +437,7 @@ p {
     margin-bottom: 3vh;
 }
 
-.timeline h3, p{
+.timeline h3, .timeline p{
     background: rgba(0, 0, 0, 0.5);
     padding: 10px 20px;
     border-radius: 10px;
@@ -451,4 +452,5 @@ p {
     border-radius: 10px;
     display: inline-block;
     margin-bottom: 3vh;
+    background: rgba(0, 0, 0, 0.5);
 }
