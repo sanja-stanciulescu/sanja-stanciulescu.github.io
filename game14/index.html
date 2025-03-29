@@ -13,13 +13,17 @@
     <nav class="navbar">
       <div class="nav-container">
           <a href="/index.html" class="nav-logo"><i class="fa-solid fa-map"></i> Geo Treasure Hunt</a>
-          <a href="/game12/" class="skip-button">
+          <a href="/end/" class="skip-button">
             <i class="fa-solid fa-arrow-right-long"></i>
           </a>
       </div>
     </nav>
 
-    <div id="street-view"></div>
+    <div id="image-container">
+        <img id="game-image" src="/public/images/cinema_city.png" alt="Game Image" />
+        <img id="game-image" src="/public/images/cinema.jpg" alt="Game Image" />
+        <div id="congrats-message"> Congrats, you found a gift! <i class="fa-solid fa-gift"></i></div>
+    </div>
 
     <!-- Reveal Next Clue Button -->
     <button id="reveal-clue">Reveal Next Clue</button>
@@ -36,10 +40,10 @@
       -->
 
     <script type="module">
-      import {loadScript, setupRevealButton } from "/src/main.js"
+      import { addImageLocation, setupRevealButton } from "/src/main.js"
       window.onload=()=> {
-        loadScript(8);
-        setupRevealButton(11, 0);
+        addImageLocation(2);
+        setupRevealButton(14, 1);
       }
 
 
